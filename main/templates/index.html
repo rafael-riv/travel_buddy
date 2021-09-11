@@ -30,7 +30,7 @@
                 <td>{{ viaje.plan }}</td>
 				<td scope="col">
 					<a href="/view/{{viaje.id}}">Show</a>
-					<a href="#"> Delete </a>
+					<a href="/delete/{{viaje.id}}"> Delete </a>
 				</td>
 			</tr>
 			
@@ -43,7 +43,7 @@
 				<td> {{viaje.travel_end}} </td>
                 <td>{{ viaje.plan }}</td>
 				<td scope="col">
-					<a href="#"> Cancel </a>
+					<a href="/remove/{{viaje.id}}"> Cancel </a>
 					<a href="/view/{{viaje.id}}">Show</a>
 				</td>
 			</tr>
@@ -77,7 +77,7 @@
 					<td>{{ otro.plan }}</td>
 					<td scope="col">
 						<a href="/join/{{otro.id}}">Join!</a>
-						<a href="/view/{{viaje.id}}">Show</a>
+						<a href="/view/{{otro.id}}">Show</a>
 					</td>
 				</tr>
 				

@@ -7,5 +7,8 @@ urlpatterns = [
     path('logout', auth.logout),
     path('create', views.create),
     path('view/<int:viaje_id>', views.view),
-    path('join/<int:viaje_id>',views.join)
+    path('join/<int:viaje_id>',views.join),
+    path('remove/<int:viaje_id', views.remove),
+    path('delete/<int:viaje_id', views.delete)
+
 ]

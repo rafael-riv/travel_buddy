@@ -42,10 +42,10 @@ def create(request):
 @login_required
 def view(request, viaje_id):
     viaje = Viaje.objects.get(id = viaje_id)
-    #viajeros = Viaje.objects.all().exclude(id = viaje.owner_user.id)
+    viajeros = Viaje.objects.all().exclude(id = viaje.owner_user.id)
     context = {
         'viaje' : viaje,
-        #'viajeros': viajeros
+        'viajeros': viajeros
     }
     return render(request,"datos.html", context)
 
@@ -57,3 +57,17 @@ def join(request, viaje_id):
     viaje = Viaje.objects.get(id = viaje_id)
     user.viajes.add(viaje)
     return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+@login_required
+def remove(request,viaje_id):
+    viajero=User.objects.get(id=request.session['user']['id'])
+    viaje=Viaje.objects.get(id=viaje_id)
+    viaje.viajeros.remove(viajero)
+    messages.warning(request, "Removido del viaje!")
+    return redirect('/')
+def delete(request,viaje_id):
+    viaje=Viaje.objects.get(id=viaje_id)
+    viaje.delete()
+    messages.warning(request, "Viaje eliminado!")
+    return redirect('/')
