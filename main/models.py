@@ -68,7 +68,7 @@ class Viaje(models.Model):
     travel_end = models.DateField()
     plan = models.CharField(max_length=255)
     owner_user = models.ForeignKey(User, related_name= "own_trips", on_delete= models.CASCADE)
-    user = models.ManyToManyField(User, related_name="trip")
+    user = models.ManyToManyField(User, related_name="viajes")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = TripsManager()

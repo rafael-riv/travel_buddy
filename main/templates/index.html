@@ -7,6 +7,7 @@
 
 
 <div class="container mt-5">
+	<h2>Calendario de Viajes</h2>
 	<table class="table">
 		<thead>
 			<tr>
@@ -14,7 +15,7 @@
 				<td scope="col">Destinations</td>
 				<td scope="col">Travel Start Date</td>
 				<td scope="col">Travel End Date</td>
-                <td scope="col"> plan</td>
+                <td scope="col"> Plan</td>
 				<td scope="col">Actions</td>
 				
 			</tr>
@@ -28,14 +29,62 @@
 				<td> {{viaje.travel_end}} </td>
                 <td>{{ viaje.plan }}</td>
 				<td scope="col">
-					<a href="#">Show</a>
-					<a href="#">Edit</a>
+					<a href="/view/{{viaje.id}}">Show</a>
 					<a href="#"> Delete </a>
 				</td>
 			</tr>
+			
 			{% endfor %}
+			{% for viaje in de_otros %}
+			<tr>
+				<th scope="row"> {{ viaje.id }} </th>
+				<td> {{viaje.destination}} </td>
+				<td> {{viaje.travel_star}} </td>
+				<td> {{viaje.travel_end}} </td>
+                <td>{{ viaje.plan }}</td>
+				<td scope="col">
+					<a href="#"> Cancel </a>
+					<a href="/view/{{viaje.id}}">Show</a>
+				</td>
+			</tr>
+			
+			{% endfor %}
+
 		</tbody>
 	</table>
+	<div class="container mt-5">
+		<h2>Calendario de Otros Viajes</h2>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">id</th>
+					<td scope="col">Destinations</td>
+					<td scope="col">Travel Start Date</td>
+					<td scope="col">Travel End Date</td>
+					<td scope="col"> Plan</td>
+					<td scope="col">Actions</td>
+					
+				</tr>
+			</thead>
+			<tbody>
+		
+				{% for otro in otros %}
+				<tr>
+					<th scope="row"> {{ otro.id }} </th>
+					<td> {{otro.destination}} </td>
+					<td> {{otro.travel_star}} </td>
+					<td> {{otro.travel_end}} </td>
+					<td>{{ otro.plan }}</td>
+					<td scope="col">
+						<a href="/join/{{otro.id}}">Join!</a>
+						<a href="/view/{{viaje.id}}">Show</a>
+					</td>
+				</tr>
+				
+				{% endfor %}
+	
+			</tbody>
+		</table>
 	<div class="text-end mt-5"><h2><a href="/create">Add Travel Plan</a></h2></div>
     <a href="/logout">SALIR DEL SISTEMA</a>
 </div>
