@@ -1,6 +1,8 @@
 from django.db import models
 import re
 
+from django.db.models import deletion
+
 # Create your models here.
 class UserManager(models.Manager):
     def validador_basico(self, postData):
@@ -46,3 +48,23 @@ class User(models.Model):
 
     def __repr__(self):
         return f"{self.name}"
+
+class Viaje(models.Model):
+    destination = models.CharField(max_length=100)
+    travel_star = models.DateField()
+    travel_end = models.DateField()
+    plan = models.CharField(max_length=255)
+    users = models.ForeignKey(User, related_name= "users", on_delete= models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Viajeros(models.Model):
+    Name = models.CharField(max_length= 100)
+    detination = models.CharField(max_length= 100)
+    travel_star = models.DateField()
+    travel_end = models.DateField()
+    viajes = models.ManyToManyField(Viaje, related_name="viejeros")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
