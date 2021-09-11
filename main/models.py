@@ -1,5 +1,7 @@
 from django.db import models
 import re
+import datetime
+from datetime import date
 
 from django.db.models import deletion
 
@@ -20,13 +22,24 @@ class UserManager(models.Manager):
         if not SOLO_LETRAS.match(postData['name']):
             errors['solo_letras'] = "solo letras en nombreporfavor"
 
-        if len(postData['password']) < 4:
+        if len(postData['password']) < 8:
             errors['password'] = "contraseña debe tener al menos 8 caracteres";
 
         if postData['password'] != postData['password_confirm'] :
             errors['password_confirm'] = "contraseña y confirmar contraseña no son iguales. "
 
         
+        return errors
+
+class TripsManager(models.Manager):
+    def validate(self, postData):
+        errors = {}
+        if datetime.datetime.strptime(postData['start_date'], "%Y-%m-%d").date() <= datetime.date.today():
+            errors['wrong_start_date'] = "Travel dates should be future-dated"
+        if datetime.datetime.strptime(postData['end_date'], "%Y-%m-%d").date() <= datetime.datetime.strptime(postData['start_date'], "%Y-%m-%d").date():
+            errors['wrong_end_date'] = "Travel Date To should not be before the Travel Date From"
+        if len(postData['description_plan']) <= 1:
+            errors['empty_plan'] = "You should describe your trip plan"
         return errors
 
 
@@ -54,17 +67,12 @@ class Viaje(models.Model):
     travel_star = models.DateField()
     travel_end = models.DateField()
     plan = models.CharField(max_length=255)
-    users = models.ForeignKey(User, related_name= "users", on_delete= models.CASCADE)
+    owner_user = models.ForeignKey(User, related_name= "own_trips", on_delete= models.CASCADE)
+    user = models.ManyToManyField(User, related_name="trip")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = TripsManager()
 
-class Viajeros(models.Model):
-    Name = models.CharField(max_length= 100)
-    detination = models.CharField(max_length= 100)
-    travel_star = models.DateField()
-    travel_end = models.DateField()
-    viajes = models.ManyToManyField(Viaje, related_name="viejeros")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
 
 

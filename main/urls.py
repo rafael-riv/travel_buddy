@@ -5,5 +5,6 @@ urlpatterns = [
     path('registro', auth.registro),
     path('login', auth.login),
     path('logout', auth.logout),
-    path('create', views.create)
+    path('create', views.create),
+    path('view/<id>', views.view)
 ]

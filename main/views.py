@@ -1,4 +1,4 @@
-from main.models import Viajeros,Viaje
+from main.models import Viaje
 from django.contrib import messages
 from django.shortcuts import redirect, render
 import bcrypt
@@ -29,6 +29,10 @@ def create(request):
         user_id = int(request.session['user']['id'])
         new_plan = Viaje.objects.create(
             destination = destination, travel_star = travel_star, travel_end = travel_end,
-            plan=plan, users_id = user_id)
+            plan=plan, owner_user_id = user_id)
     return redirect("/")
+
+@login_required
+def view(request, id):
+    pass
 

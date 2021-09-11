@@ -52,6 +52,7 @@ def registro(request):
             
             request.session['register_name'] =  request.POST['name']
             request.session['register_email'] =  request.POST['email']
+            
 
         else:
             request.session['register_name'] = ""
