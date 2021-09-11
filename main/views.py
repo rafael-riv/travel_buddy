@@ -1,4 +1,4 @@
-from main.models import Viaje
+from main.models import Viaje, User
 from django.contrib import messages
 from django.shortcuts import redirect, render
 import bcrypt
